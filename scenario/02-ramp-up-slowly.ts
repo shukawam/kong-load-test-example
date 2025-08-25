@@ -1,23 +1,25 @@
 import http from "k6/http";
-import { check, fail, sleep } from "k6";
+import { check, sleep, fail } from "k6";
 import { Trend } from "k6/metrics";
 
 // 環境に応じて修正
 const baseUrl = __ENV.GATEWAY_ENDPOINT || "http://localhost:8000";
 const urlPaths = ["orders", "cart", "catalogue"];
 
-// レスポンスタイムを用いてテスト結果を判定するため専用のカスタムメトリクスを作成する
 const responseTimeTrend = new Trend("response_time");
 
 export const options = {
   scenarios: {
     contacts: {
-      executor: "constant-arrival-rate", // 一定のリクエストレートを維持する
-      duration: "5m", // テストの実行時間
-      rate: 100, // 単位時間（timeUnit）あたりリクエスト数（=満たすべき平均TPS）
+      executor: "ramping-arrival-rate",
+      startRate: 100, // 単位時間（timeUnit）あたりの初期リクエストレート
       timeUnit: "1s", // 単位時間
       preAllocatedVUs: 5, // 事前に割り当てる仮想ユーザー数
-      maxVUs: 10, // 最大仮想ユーザー数
+      stages: [
+        { target: 100, duration: "1m" }, // 最初の1分間は100rpsで一定
+        { target: 200, duration: "5m" }, // 次の5分間は200rpsで一定
+        { target: 100, duration: "1m" }, // 最後の1分間は100rpsで一定
+      ],
     },
   },
   thresholds: {

@@ -11,25 +11,15 @@ export const options = {
 
 export function setup() {
   console.log("Waiting for services to be ready...");
-  while (true) {
-    const response = http.get(`${baseUrl}/orders`)
-    if (response.status === 200) {
-      console.log("Orders Service is ready.");
-      break;
-    }
-  }
-  while (true) {
-    const response = http.get(`${baseUrl}/catalogue`)
-    if (response.status === 200) {
-      console.log("Catalogue Service is ready.");
-      break;
-    }
-  }
-  while (true) {
-    const response = http.get(`${baseUrl}/cart`)
-    if (response.status === 200) {
-      console.log("Cart Service is ready.");
-      break;
+  for (const path of urlPaths) {
+    while (true) {
+      const response = http.get(`${baseUrl}/${path}`);
+      if (response.status === 200) {
+        console.log(`${path} Service is ready.`);
+        break;
+      }
+      console.log(`Waiting for ${path} service...`);
+      sleep(1);
     }
   }
 }
