@@ -1,0 +1,45 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - name: catalogue-service
+    url: http://catalogue:3001
+    routes:
+      - name: catalogue-route
+        paths:
+          - /catalogue
+        strip_path: false
+  - name: carts-service
+    url: http://carts:3002
+    routes:
+      - name: cart-route
+        paths:
+          - /cart
+        strip_path: false
+  - name: orders-service
+    url: http://orders:3003
+    routes:
+      - name: orders-route
+        paths:
+          - /orders
+        strip_path: false
+
+plugins:
+  - name: opentelemetry
+    config:
+      traces_endpoint: http://otel-collector:4318/v1/traces
+      logs_endpoint: http://otel-collector:4318/v1/logs
+      resource_attributes:
+        service.name: kong-otel-plugin
+  - name: prometheus
+    config:
+      per_consumer: true
+      status_code_metrics: true
+      ai_metrics: true
+      latency_metrics: true
+      bandwidth_metrics: true
+      upstream_health_metrics: true
+      wasm_metrics: true
+  - name: file-log
+    config:
+      path: /dev/stdout

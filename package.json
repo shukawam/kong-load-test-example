@@ -1,0 +1,24 @@
+{
+  "name": "kong-load-test-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shukawam/kong-load-test-example.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/shukawam/kong-load-test-example/issues"
+  },
+  "homepage": "https://github.com/shukawam/kong-load-test-example#readme",
+  "devDependencies": {
+    "@types/k6": "^1.2.0"
+  }
+}
