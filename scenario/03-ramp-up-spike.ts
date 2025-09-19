@@ -18,7 +18,7 @@ export const options = {
       stages: [
         { target: 100, duration: "30s" }, // 最初の1分間は100rpsで一定
         { target: 500, duration: "1m" }, // 次の1分間は500rpsで一定
-        { target: 100, duration: "30m" }, // 最後の1分間は100rpsで一定
+        { target: 100, duration: "30s" }, // 最後の1分間は100rpsで一定
       ],
     },
   },
