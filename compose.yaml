@@ -47,25 +47,25 @@ services:
       <<: *otel-env
       OTEL_SERVICE_NAME: orders
   
-  # k6:
-  #   <<: *default
-  #   image: grafana/k6
-  #   container_name: k6
-  #   command:
-  #     - run
-  #     - -o
-  #     - experimental-prometheus-rw
-  #     - /app/script.ts
-  #   environment:
-  #     GATEWAY_ENDPOINT: http://gateway:8000
-  #     K6_PROMETHEUS_RW_SERVER_URL: http://prometheus:9090/api/v1/write
-  #   volumes:
-  #     - ./scenario/00-smoke-test.ts:/app/script.ts
-  #   depends_on:
-  #     - gateway
-  #     - catalogue
-  #     - carts
-  #     - orders
+  k6:
+    <<: *default
+    image: grafana/k6
+    container_name: k6
+    command:
+      - run
+      - -o
+      - experimental-prometheus-rw
+      - /app/script.ts
+    environment:
+      GATEWAY_ENDPOINT: http://gateway:8000
+      K6_PROMETHEUS_RW_SERVER_URL: http://prometheus:9090/api/v1/write
+    volumes:
+      - ./scenario/01-average-tps.ts:/app/script.ts
+    depends_on:
+      - gateway
+      - catalogue
+      - carts
+      - orders
 
   database:
     <<: *default

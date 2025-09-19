@@ -13,7 +13,7 @@ export const options = {
   scenarios: {
     contacts: {
       executor: "constant-arrival-rate", // 一定のリクエストレートを維持する
-      duration: "5m", // テストの実行時間
+      duration: "1m", // テストの実行時間
       rate: 100, // 単位時間（timeUnit）あたりリクエスト数（=満たすべき平均TPS）
       timeUnit: "1s", // 単位時間
       preAllocatedVUs: 5, // 事前に割り当てる仮想ユーザー数

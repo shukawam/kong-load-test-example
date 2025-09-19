@@ -16,9 +16,9 @@ export const options = {
       timeUnit: "1s", // 単位時間
       preAllocatedVUs: 5, // 事前に割り当てる仮想ユーザー数
       stages: [
-        { target: 100, duration: "1m" }, // 最初の1分間は100rpsで一定
+        { target: 100, duration: "30s" }, // 最初の1分間は100rpsで一定
         { target: 500, duration: "1m" }, // 次の1分間は500rpsで一定
-        { target: 100, duration: "1m" }, // 最後の1分間は100rpsで一定
+        { target: 100, duration: "30m" }, // 最後の1分間は100rpsで一定
       ],
     },
   },
